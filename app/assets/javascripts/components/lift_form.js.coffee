@@ -32,7 +32,6 @@ coefficients = {1: 1, 2: .943, 3: .906, 4: .881, 5: .851, 6: .831, 7: .807, 8:78
       React.DOM.div
         className: 'col-xs-12 col-md-12 col-xl-12'
         React.DOM.form
-          className: 'form-inline'
           onSubmit: @handleSubmit
           React.DOM.div
             className: 'form-group pad-r5'
@@ -55,7 +54,7 @@ coefficients = {1: 1, 2: .943, 3: .906, 4: .881, 5: .851, 6: .831, 7: .807, 8:78
           React.DOM.div
             className: 'form-group pad-r5'
             React.DOM.button
-              className: 'btn btn-primary'
+              className: 'btn btn-warning btn-block'
               onClick: @toggleUnit
               'Metric = ' + @state.ismetric.toString()
           React.DOM.div
@@ -83,7 +82,7 @@ coefficients = {1: 1, 2: .943, 3: .906, 4: .881, 5: .851, 6: .831, 7: .807, 8:78
             className: 'form-group pad-r5'
             React.DOM.button
               type: 'submit'
-              className: 'btn btn-success'
+              className: 'btn btn-success btn-block'
               disabled: !@valid()
               'Create lift'
       React.DOM.div

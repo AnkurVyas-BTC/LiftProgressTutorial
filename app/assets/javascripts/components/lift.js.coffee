@@ -54,12 +54,12 @@ coefficients = {
       React.DOM.td null, @props.lift.onerm
       React.DOM.td null, @props.lift.ismetric.toString()
       React.DOM.td null,
-        React.DOM.button
-          className: 'btn btn-primary btn-block'
+        React.DOM.span
+          className: 'btn btn-primary mar-r5'
           onClick: @handleToggle
           'Edit'
-        React.DOM.button
-          className: 'btn btn-danger btn-block'
+        React.DOM.span
+          className: 'btn btn-danger'
           onClick: @handleDelete
           'Delete'
   liftForm: ->
@@ -100,12 +100,12 @@ coefficients = {
           onClick: @toggleUnit
           'Metric = ' + @state.ismetric.toString()
       React.DOM.td null,
-        React.DOM.button
-          className: 'btn btn-primary btn-block'
+        React.DOM.span
+          className: 'btn btn-success mar-r5'
           onClick: @handleEdit
           'Update'
-        React.DOM.button
-          className: 'btn btn-danger btn-block'
+        React.DOM.span
+          className: 'btn btn-danger'
           onClick: @handleToggle
           'Cancel'
   render: ->

@@ -15,6 +15,7 @@
 //= require turbolinks
 //= require tether.min
 //= require bootstrap-sprockets
+//= require chartkick
 //= require react
 //= require react_ujs
 //= require components
