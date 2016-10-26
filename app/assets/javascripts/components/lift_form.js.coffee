@@ -9,7 +9,7 @@ coefficients = {1: 1, 2: .943, 3: .906, 4: .881, 5: .851, 6: .831, 7: .807, 8:78
     onerm: ''
   calculateOneRm: ->
     if @state.weightlifted and @state.repsperformed
-      @state.onerm = @state.weightlifted / coefficients[@state.repsperformed]
+      @state.onerm = @state.weightlifted / coefficients[(@state.repsperformed % 10)]
     else
       0
   toggleUnit: (e) ->
