@@ -20,6 +20,9 @@
     React.DOM.div
       className: 'row pad-a25'
       React.DOM.div
+        className: 'col-xs-12 pad-b20'
+        React.createElement NavigationMenu
+      React.DOM.div
         className: 'col-xs-12'
         React.DOM.div
           className: 'col-xs-12'
