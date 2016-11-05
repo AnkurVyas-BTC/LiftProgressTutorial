@@ -1,3 +1,4 @@
+BG_COLOR_CLASS = {incomplete: 'table-danger', wip: 'table-warning', completed: 'table-success'}
 @Task = React.createClass
   getInitialState: ->
     edit: false
@@ -15,7 +16,9 @@
   handleEdit: (e) ->
     e.preventDefault()
     data =
-      taskname: ReactDOM.findDOMNode(@refs.taskname).value
+      description: ReactDOM.findDOMNode(@refs.taskname).value
+      user_id: ReactDOM.findDOMNode(@refs.user_id).value
+      status: ReactDOM.findDOMNode(@refs.status).value
     $.ajax
       method: 'PUT'
       url: "/tasks/#{ @props.task.id }"
@@ -29,6 +32,9 @@
     React.DOM.tr null,
       React.DOM.td null, @props.task.description
       React.DOM.td null, @props.task.username
+      React.DOM.td
+        className: BG_COLOR_CLASS[@props.task.status]
+        @props.task.status
       React.DOM.td null,
         React.DOM.span
           className: 'btn btn-primary mar-r5'
@@ -47,11 +53,43 @@
           defaultValue: @props.task.description
           ref: 'taskname'
       React.DOM.td null,
-        React.DOM.input
-          className: 'form-control'
-          type: 'number'
-          defaultValue: @props.task.user_id
-          ref: 'user_id'
+        React.DOM.div
+          className: 'form-group'
+          React.DOM.div
+            React.DOM.select
+              className: 'form-control'
+              ref: 'user_id'
+              for user in @props.users
+                if @props.task.user_id == user.id
+                  React.DOM.option
+                    key: user.id
+                    value: user.id
+                    selected: 'selected'
+                    user.name
+                else
+                  React.DOM.option
+                    key: user.id
+                    value: user.id
+                    user.name
+      React.DOM.td null,
+        React.DOM.div
+          className: 'form-group'
+          React.DOM.div
+            React.DOM.select
+              className: 'form-control'
+              ref: 'status'
+              for status in @props.statuses
+                if @props.task.status == status
+                  React.DOM.option
+                    key: status
+                    value: status
+                    selected: 'selected'
+                    status
+                else
+                  React.DOM.option
+                    key: status
+                    value: status
+                    status
       React.DOM.td null,
         React.DOM.span
           className: 'btn btn-success mar-r5'

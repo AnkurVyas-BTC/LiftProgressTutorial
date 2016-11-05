@@ -2,6 +2,7 @@
   getInitialState: ->
     description: ''
     user_id: 1
+    status: 'incomplete'
   getDefaultProps: ->
     users: []
   handleValueChange: (e) ->
@@ -32,16 +33,29 @@
               value: @state.description
               onChange: @handleValueChange
           React.DOM.div
-            className: 'form-group pad-r5 col-xs-6'
+            className: 'form-group pad-r5 col-xs-3'
+            React.DOM.div
+              React.DOM.select
+                className: 'form-control'
+                name: 'user_id'
+                onChange: @handleValueChange
+                for user in @props.users
+                  React.DOM.option
+                    key: user.id
+                    value: user.id
+                    user.name
           React.DOM.div
-            React.DOM.select
-              name: 'user_id'
-              onChange: @handleValueChange
-              for user in @props.users
-                React.DOM.option
-                  key: user.id
-                  value: user.id
-                  user.name
+            className: 'form-group pad-r5 col-xs-3'
+            React.DOM.div
+              React.DOM.select
+                className: 'form-control'
+                name: 'status'
+                onChange: @handleValueChange
+                for status in @props.statuses
+                  React.DOM.option
+                    key: status
+                    value: status
+                    status
           React.DOM.div
             className: 'form-group pad-r5'
             React.DOM.button

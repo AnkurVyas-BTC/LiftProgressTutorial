@@ -28,10 +28,10 @@ ActiveRecord::Schema.define(version: 20161104085611) do
 
   create_table "tasks", force: :cascade do |t|
     t.string   "description"
-    t.integer  "status"
+    t.integer  "status",      default: 0
     t.integer  "user_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   create_table "users", force: :cascade do |t|

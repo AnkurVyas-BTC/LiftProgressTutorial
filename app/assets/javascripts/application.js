@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jsapi
 //= require turbolinks
 //= require tether.min
 //= require chartkick

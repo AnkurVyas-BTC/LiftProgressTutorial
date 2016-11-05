@@ -4,8 +4,10 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.all
+    page = params[:page] || 1
+    @tasks = Task.order(created_at: :desc).page(page).per(10)
     @users = User.all
+    @statuses = Task.statuses.keys.to_a
   end
 
   # GET /tasks/1

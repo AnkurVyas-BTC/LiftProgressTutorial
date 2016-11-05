@@ -51,4 +51,5 @@ gem 'react-rails-hot-loader', '~> 0.6.0'
 gem 'pg'
 gem 'rails_12factor', group: :production
 gem 'font-awesome-rails'
+gem 'kaminari'
 ruby '2.2.3'
