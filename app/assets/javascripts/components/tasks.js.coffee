@@ -2,41 +2,44 @@
   getInitialState: ->
     tasks: @props.tasks
     users: @props.users
-  addTask: (task) ->
-    tasks = @state.tasks.slice()
-    tasks.push task
-    @setState tasks: tasks
-  componentDidMount: ->
+    stats: @props.stats
+    user_stats: @props.user_stats
+  refreshStats: ->
     $.ajax
       method: 'GET'
-      url: "/tasks"
+      url: Routes.tasks_get_stats_path()
       dataType: 'JSON'
       success: (data) =>
-        @setState tasks: data
-  handlePaginationClick: (e) ->
+        @setState stats: data.stats, user_stats: data.user_stats
+  getTasks: (page)->
     $.ajax
       method: 'GET'
-      url: "/tasks"
+      url: Routes.tasks_get_tasks_path()
       dataType: 'JSON'
       data:
-        page: $(e.target).text()
+        page: page
       success: (data) =>
-        @setState tasks: data
+        @setState tasks: data.task_list
+        @refreshStats()
+  addTask: (task) ->
+    @getTasks()
+  componentDidMount: ->
+    @getTasks()
+  handlePaginationClick: (e) ->
+    @getTasks($(e.target).text())
   deleteTask: (task) ->
-    tasks = @state.tasks.slice()
-    index = tasks.indexOf task
-    tasks.splice index, 1
-    @setState tasks: tasks
+    @getTasks()
   updateTask: (task, data) ->
     index = @state.tasks.indexOf task
     tasks = React.addons.update(@state.tasks, { $splice: [[index, 1, data]] })
     @setState tasks: tasks
+    @refreshStats()
   render: ->
     React.DOM.div
       className: 'row pad-a25'
       React.DOM.div
         className: 'col-xs-12 pad-b20'
-        React.createElement NavigationMenu
+        React.createElement NavigationMenu, active_route: 'tasks'
       React.DOM.div
         className: 'col-xs-12'
         React.DOM.div
@@ -73,4 +76,4 @@
                       page
       React.DOM.div
         className: 'col-xs-6'
-        React.createElement TaskAnalytics, tasks: @state.tasks, statuses: @props.statuses, users: @state.users
+        React.createElement TaskAnalytics, tasks: @state.tasks, statuses: @props.statuses, users: @state.users, stats: @state.stats, user_stats: @state.user_stats

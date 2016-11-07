@@ -20,4 +20,5 @@
 //= require react_ujs
 //= require components
 //= require react-rails-hot-loader
+//= require js-routes
 //= require_tree .

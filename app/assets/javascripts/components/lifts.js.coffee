@@ -21,7 +21,7 @@
       className: 'row pad-a25'
       React.DOM.div
         className: 'col-xs-12 pad-b20'
-        React.createElement NavigationMenu
+        React.createElement NavigationMenu, active_route: 'lifts'
       React.DOM.div
         className: 'col-xs-12'
         React.DOM.div

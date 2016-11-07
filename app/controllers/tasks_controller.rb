@@ -6,8 +6,30 @@ class TasksController < ApplicationController
   def index
     page = params[:page] || 1
     @tasks = Task.order(created_at: :desc).page(page).per(10)
+    @status_arr = Task.statuses.keys.each_with_object({}) { |status, arr| arr[status] = Task.try(status).count; arr }
     @users = User.all
     @statuses = Task.statuses.keys.to_a
+  end
+
+  def get_stats
+    @status_arr = Task.statuses.keys.each_with_object({}) { |status, arr| arr[status] = Task.try(status).count; arr }
+    @status_arr[:total_tasks] = Task.count
+    @user_stats = []
+    User.all.map do |user|
+      h = {}
+      h[:name] = user.name
+      h[:id] = user.id
+      Task.statuses.keys.map do |status|
+        h[status] = user.tasks.try(status).count
+      end
+      @user_stats << h
+    end
+    @user_stats
+  end
+
+  def get_tasks
+    page = params[:page] || 1
+    @tasks = Task.order(created_at: :desc).page(page).per(10)
   end
 
   # GET /tasks/1
@@ -65,13 +87,14 @@ class TasksController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_task
-      @task = Task.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def task_params
-      params.require(:task).permit(:description, :status, :user_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_task
+    @task = Task.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def task_params
+    params.require(:task).permit(:description, :status, :user_id)
+  end
 end

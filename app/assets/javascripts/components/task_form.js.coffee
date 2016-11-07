@@ -10,7 +10,7 @@
     @setState "#{ valueName }" : e.target.value
   handleSubmit: (e) ->
     e.preventDefault()
-    $.post '', { task: @state }, (data) =>
+    $.post Routes.tasks_path(), { task: @state }, (data) =>
       @props.handleNewTask data
       @setState @getInitialState()
     , 'JSON'
@@ -38,6 +38,7 @@
               React.DOM.select
                 className: 'form-control'
                 name: 'user_id'
+                value: @state.user_id
                 onChange: @handleValueChange
                 for user in @props.users
                   React.DOM.option
@@ -50,6 +51,7 @@
               React.DOM.select
                 className: 'form-control'
                 name: 'status'
+                value: @state.status
                 onChange: @handleValueChange
                 for status in @props.statuses
                   React.DOM.option

@@ -9,7 +9,7 @@ BG_COLOR_CLASS = {incomplete: 'table-danger', wip: 'table-warning', completed: '
     e.preventDefault()
     $.ajax
       method: 'DELETE'
-      url: "/tasks/#{ @props.task.id }"
+      url: Routes.task_path(@props.task.id)
       dataType: 'JSON'
       success: () =>
         @props.handleDeleteTask @props.task
@@ -21,7 +21,7 @@ BG_COLOR_CLASS = {incomplete: 'table-danger', wip: 'table-warning', completed: '
       status: ReactDOM.findDOMNode(@refs.status).value
     $.ajax
       method: 'PUT'
-      url: "/tasks/#{ @props.task.id }"
+      url: Routes.task_path(@props.task.id)
       dataType: 'JSON'
       data:
         task: data
@@ -59,18 +59,12 @@ BG_COLOR_CLASS = {incomplete: 'table-danger', wip: 'table-warning', completed: '
             React.DOM.select
               className: 'form-control'
               ref: 'user_id'
+              defaultValue: @props.task.user_id
               for user in @props.users
-                if @props.task.user_id == user.id
-                  React.DOM.option
-                    key: user.id
-                    value: user.id
-                    selected: 'selected'
-                    user.name
-                else
-                  React.DOM.option
-                    key: user.id
-                    value: user.id
-                    user.name
+                React.DOM.option
+                  key: user.id
+                  value: user.id
+                  user.name
       React.DOM.td null,
         React.DOM.div
           className: 'form-group'
@@ -78,18 +72,12 @@ BG_COLOR_CLASS = {incomplete: 'table-danger', wip: 'table-warning', completed: '
             React.DOM.select
               className: 'form-control'
               ref: 'status'
+              defaultValue: @props.task.status
               for status in @props.statuses
-                if @props.task.status == status
-                  React.DOM.option
-                    key: status
-                    value: status
-                    selected: 'selected'
-                    status
-                else
-                  React.DOM.option
-                    key: status
-                    value: status
-                    status
+                React.DOM.option
+                  key: status
+                  value: status
+                  status
       React.DOM.td null,
         React.DOM.span
           className: 'btn btn-success mar-r5'

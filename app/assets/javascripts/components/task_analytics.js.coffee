@@ -7,13 +7,12 @@ TAG_COLOR_CLASS = {incomplete: 'tag-danger', wip: 'tag-warning', completed: 'tag
     tasks.filter((task) => ( task.status == status)).length
   countTasksPerUser: (username) ->
     @props.tasks.filter((task) => ( task.username == username)).length
-  createDataForPieChart: (user_id)->
+  createDataForPieChart: (user)->
     newr = []
-    tasks = @props.tasks.filter((task) => task.user_id == user_id )
     for status in @props.statuses
       arr = []
       arr.push status
-      arr.push @countTasksPerStatus(status, tasks)
+      arr.push user[status]
       newr.push arr
     newr
   render: ->
@@ -33,17 +32,17 @@ TAG_COLOR_CLASS = {incomplete: 'tag-danger', wip: 'tag-warning', completed: 'tag
           React.DOM.tbody null,
             React.DOM.tr null,
               React.DOM.td null,
-                @props.tasks.length
+                @props.stats.total_tasks
               for status in @props.statuses
                 React.DOM.td null,
-                  @countTasksPerStatus(status, @props.tasks)
+                  @props.stats[status]
         for status in @props.statuses
           React.DOM.progress
             className: 'progress progress-striped progress-animated ' + PROGRESS_COLOR_CLASS[status]
-            value: @countTasksPerStatus(status, @props.tasks)
-            max: @props.tasks.length
+            value: @props.stats[status]
+            max: @props.stats.total_tasks
       React.DOM.div
-        for user in @props.users
+        for user in @props.user_stats
           React.DOM.div
             className: 'col-md-6'
             React.DOM.div
@@ -53,5 +52,5 @@ TAG_COLOR_CLASS = {incomplete: 'tag-danger', wip: 'tag-warning', completed: 'tag
                 user.name
               React.DOM.div
                 className: 'card-text'
-                React.createElement TaskChart, chart_data: @createDataForPieChart(user.id), chart_id: user.id
+                React.createElement TaskChart, chart_data: @createDataForPieChart(user), chart_id: user.id
 

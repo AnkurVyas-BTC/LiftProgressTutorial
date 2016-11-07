@@ -52,4 +52,5 @@ gem 'pg'
 gem 'rails_12factor', group: :production
 gem 'font-awesome-rails'
 gem 'kaminari'
+gem 'js-routes'
 ruby '2.2.3'
